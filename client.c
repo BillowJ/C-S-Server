@@ -10,7 +10,7 @@
 #include <ctype.h>
 #include <arpa/inet.h>
 
-#define SERV_PORT 6666
+#define SERV_PORT 8880
 #define SERV_IP "127.0.0.1"
 
 int main(int argc, char** argv){
