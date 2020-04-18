@@ -23,7 +23,7 @@ int main(void){
     char buf[BUFSIZ];
     char clie_IP[BUFSIZ];
     int i, n;
-    lfd = socket(AF_INET, SOCK_STREAM, 0);
+    lfd = Socket(AF_INET, SOCK_STREAM, 0);
     //端口复用
     int opt = 1;
     setsockopt(lfd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
@@ -68,7 +68,7 @@ int main(void){
                 for(i = 0; i < n; i++){
                     buf[i] = toupper(buf[i]);
                 }
-                write(cfd, buf, n);
+                Write(cfd, buf, n);
             }
         }
     }

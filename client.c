@@ -9,15 +9,17 @@
 #include <sys/socket.h>
 #include <ctype.h>
 #include <arpa/inet.h>
+#include "wrap.h"
 
-#define SERV_PORT 8880
+#define SERV_PORT 6666
 #define SERV_IP "127.0.0.1"
 
-int main(int argc, char** argv){
+int main(int argc, char* argv[]){
     int cfd;
     int n;
+    //uint16_t port =(uint16_t)*argv[1];
     struct sockaddr_in serv_addr;  //server's port ip
-    cfd = socket(AF_INET, SOCK_STREAM, 0);
+    cfd = Socket(AF_INET, SOCK_STREAM, 0);
     char buf[BUFSIZ];
 
     memset(&serv_addr, 0, sizeof(serv_addr));
@@ -25,14 +27,15 @@ int main(int argc, char** argv){
     //addr.sin_addr.s_addr = htonl(INADDR_ANY);
     inet_pton(AF_INET, SERV_IP, &serv_addr.sin_addr.s_addr);
     serv_addr.sin_port = htons(SERV_PORT);
+    //serv_addr.sin_port = htons(port);
     serv_addr.sin_family = AF_INET;
 
     while(1){
-        connect(cfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr));
+        Connect(cfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr));
         fgets(buf, sizeof(buf), stdin); //"hello \n\0"
-        write(cfd, buf, strlen(buf));
-        n = read(cfd, buf, sizeof(buf));
-        write(STDOUT_FILENO, buf, n);
+        Write(cfd, buf, strlen(buf));
+        n = Read(cfd, buf, sizeof(buf));
+        Write(STDOUT_FILENO, buf, n);
     }
     close(cfd);
     return 0;

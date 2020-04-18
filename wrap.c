@@ -16,7 +16,7 @@ int Accept(int fd, struct sockaddr *sa, socklen_t *salenptr)
 
 again:
 	if ((n = accept(fd, sa, salenptr)) < 0) {
-		if ((errno == ECONNABORTED) || (errno == EINTR)) //client中断连接
+		if ((errno == ECONNABORTED) || (errno == EINTR))
 			goto again;
 		else
 			perr_exit("accept error");
@@ -86,7 +86,7 @@ ssize_t Write(int fd, const void *ptr, size_t nbytes)
 
 again:
 	if ((n = write(fd, ptr, nbytes)) == -1) {
-		if (errno == EINTR) //信号中断
+		if (errno == EINTR)
 			goto again;
 		else
 			return -1;
@@ -161,7 +161,7 @@ again:
 			if (errno == EINTR)
 				goto again;
 			return -1;
-		} else if (read_cnt == 0) //结束
+		} else if (read_cnt == 0)
 			return 0;
 
 		read_ptr = read_buf;
